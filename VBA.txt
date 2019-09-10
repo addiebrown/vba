@@ -1,0 +1,32 @@
+Sub MYSD()
+   'setting variables
+   Dim ticker As String
+   Dim tickerVol As Double
+   tickerVol = 0
+   
+   'tracking location in rows
+   Dim tableRow As Double
+   tableRow = 2
+   Dim rowCount As Double
+       rowCount = Cells(Rows.Count, "A").End(xlUp).Row
+       
+   'looping purchases
+   For i = 2 To rowCount
+   If Cells(i + 1, 1).Value <> Cells(i, 1).Value Then
+       ticker = Cells(i, 1).Value
+       'ticker volume
+       tickerVol = tickerVol + Cells(i, 7).Value
+       'print name
+       Range("K" & tableRow).Value = ticker
+       'print volume
+       Range("L" & tableRow).Value = tickerVol
+       'add summary table row
+       tableRow = tableRow + 1
+   'Reset the ticker Total Volume
+       tickerVol = 0
+   Else
+   'add total together
+   tickerVol = tickerVol + Cells(i, 7).Value
+   End If
+Next i
+End Sub
